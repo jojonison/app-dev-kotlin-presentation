@@ -1,29 +1,37 @@
 import java.util.Scanner
 
-data class Taxi(val taxiNumber: String, val baseFare: Double, val perKilometerRate: Double, val quota: Double) {
-    var isBooked: Boolean = false
+data class Taxi(val taxiNumber: String, val baseFare: Double, val perKilometerRate: Double, val quota: Double)
+{
+    var is_booked: Boolean = false
 
-    operator fun plus(otherTaxi: Taxi): Double {
+    operator fun plus(otherTaxi: Taxi): Double
+    {
         return this.quota + otherTaxi.quota
     }
 
-    operator fun invoke() {
-        if (!isBooked) {
+    operator fun invoke()
+    {
+        if (!isBooked)
+        {
             println("\nTaxi $taxiNumber has been booked. \n")
             isBooked = true
-        } else {
+        } else
+        {
             println("\nTaxi $taxiNumber is already booked.\n")
         }
     }
 
 
-    inline fun calculateFare(distance: Double, fareCalculator: (Double) -> Double): Double {
+    inline fun calculateFare(distance: Double, fareCalculator: (Double) -> Double): Double
+    {
         return fareCalculator(distance)
     }
 
-    companion object {
+    companion object
+    {
         @JvmStatic
-        fun main(args:Array<String>) {
+        fun main(args: Array<String>)
+        {
             loginUser()
         }
     }
@@ -32,7 +40,8 @@ data class Taxi(val taxiNumber: String, val baseFare: Double, val perKilometerRa
 
 val taxis = mutableListOf<Taxi>()
 
-fun printMenuUser() {
+fun printMenuUser()
+{
     println("\nBaguio City Taxi Booking System")
     println("Welcome to the City of Pines!\n")
     println("1. Book a taxi")
@@ -40,12 +49,15 @@ fun printMenuUser() {
     println("3. Exit")
     getUserChoice()
 }
-fun getUserChoice() {
+
+fun getUserChoice()
+{
     val kbd = Scanner(System.`in`)
     println("Enter choice: ")
     val choice = kbd.nextInt()
 
-    when (choice) {
+    when (choice)
+    {
         1 -> bookTaxi()
         2 -> getTotalQuota()
         3 -> println("Thank you for using our program!")
@@ -53,7 +65,8 @@ fun getUserChoice() {
     }
 }
 
-fun loginUser() {
+fun loginUser()
+{
     val taxi1 = Taxi("T123", 40.0, 13.0, 100.00)
     val taxi2 = Taxi("T456", 40.0, 15.0, 550.00)
 
@@ -71,10 +84,13 @@ fun loginUser() {
     println("Password: ")
     val pass = kbd.nextLine()
 
-    when {
-        credentials[user] == pass -> {
+    when
+    {
+        credentials[user] == pass ->
+        {
             println("LOGGED IN\n")
-            when (user) {
+            when (user)
+            {
                 "" -> printMenuUser()
             }
         }
@@ -83,7 +99,8 @@ fun loginUser() {
     }
 }
 
-fun bookTaxi() {
+fun bookTaxi()
+{
     println("\nAvailable Taxis in Baguio City: ")
     taxis.forEachIndexed { index, taxi ->
         println("${index + 1}. Taxi ${taxi.taxiNumber}")
@@ -95,7 +112,8 @@ fun bookTaxi() {
 
     val selectedTaxi = taxis.getOrNull(choice - 1)
 
-    if (selectedTaxi != null && !selectedTaxi.isBooked) {
+    if (selectedTaxi != null && !selectedTaxi.isBooked)
+    {
         selectedTaxi() // call the overloaded method (invoke)
         println("\nKilometers to your destination: ")
         val distanceInKilometers = kbd.nextDouble()
@@ -109,7 +127,8 @@ fun bookTaxi() {
         println("Press enter to continue")
         kbd.nextLine()
         kbd.nextLine()
-    } else {
+    } else
+    {
         println("Invalid choice or taxi already booked.")
     }
 
@@ -117,7 +136,8 @@ fun bookTaxi() {
 }
 
 
-fun getTotalQuota() {
+fun getTotalQuota()
+{
     val kbd = Scanner(System.`in`)
     val totalQuota = taxis[0] + taxis[1]
     println("\nTotal quota for all taxis: ₱$totalQuota")
