@@ -10,7 +10,8 @@ import kotlinx.coroutines.*
 import java.util.Scanner
 
 /* The ParkingLot class represents a parking lot with a given capacity and provides methods to park and release cars. */
-class ParkingLot(capacity: Int) {
+class ParkingLot(capacity: Int)
+{
     // Variables declarations
     private val available_slots = mutableListOf<Boolean>()
     private val random = java.util.Random()
@@ -18,7 +19,8 @@ class ParkingLot(capacity: Int) {
     private var car_counter = 1
 
     // Initialize all spots as available
-    init {
+    init
+    {
         repeat(capacity) { available_slots.add(true) }
     }
 
@@ -26,27 +28,32 @@ class ParkingLot(capacity: Int) {
      * Simulates a car parking in a spot, staying for 2 seconds, and then departing from the spot.
      *
      */
-    suspend fun parkCar() {
-        val slotNo = findAvailableSpot()
-        if (slotNo != -1) {
-            val carNo = car_counter++
+    suspend fun park_car()
+    {
+        val slot_no = find_available_spot()
+        if (slot_no != -1)
+        {
+            val car_no = car_counter++
             // Print if a car park
-            println("Car $carNo parked in spot $slotNo.")
+            println("Car $car_no parked in spot $slot_no.")
 
             // Simulate car parking for 2 seconds
-            try {
+            try
+            {
                 // Simulate car parking for 2 seconds
                 delay(2000)
-            } catch (e: Exception) {
+            } catch (e: Exception)
+            {
                 // Handle the exception (e.g., print an error message)
                 println("Error while simulating car parking: ${e.message}")
             }
 
             // Print if a car departed from a spot
-            println("Car $carNo departed from spot $slotNo.")
+            println("Car $car_no departed from spot $slot_no.")
             // Open the parking slot
-            releaseSpot(slotNo)
-        } else {
+            release_spot(slot_no)
+        } else
+        {
             println("Car $car_counter couldn't find a parking spot and exited.")
             car_counter++
         }
@@ -55,11 +62,13 @@ class ParkingLot(capacity: Int) {
         total_cars_parked++
 
         // Shows the number of available slot after 20 cars parked
-        if (total_cars_parked % 20 == 0) {
+        if (total_cars_parked % 20 == 0)
+        {
             try
             {
-                updateAvailableSlots()
-            } catch (e: Exception) {
+                update_available_slots()
+            } catch (e: Exception)
+            {
                 // Handle exceptions during updating available slots
                 println("Error while updating available slots: ${e.message}")
             }
@@ -75,28 +84,33 @@ class ParkingLot(capacity: Int) {
      * available spots, it returns -1 to indicate that there are no available spots.
      *
      */
-    private fun findAvailableSpot(): Int {
+    private fun find_available_spot(): Int
+    {
         // Create a list of indices representing available spots
-        val availableSpotsIndices = mutableListOf<Int>()
-        for (index in available_slots.indices) {
-            if (available_slots[index]) {
-                availableSpotsIndices.add(index)
+        val available_spots_indices = mutableListOf<Int>()
+        for (index in available_slots.indices)
+        {
+            if (available_slots[index])
+            {
+                available_spots_indices.add(index)
             }
         }
 
         // Check if there are available spots
-        return if (availableSpotsIndices.isNotEmpty()) {
+        return if (available_spots_indices.isNotEmpty())
+        {
             // Randomly select an index from the list of available spots
-            val randomIndex = random.nextInt(availableSpotsIndices.size)
+            val random_index = random.nextInt(available_spots_indices.size)
             // Get the parking spot number using the randomly selected index
-            val spotNo = availableSpotsIndices[randomIndex]
+            val spot_no = available_spots_indices[random_index]
 
             // Mark the selected spot as occupied
-            available_slots[spotNo] = false
+            available_slots[spot_no] = false
 
             // Return the parking spot number
-            spotNo
-        } else {
+            spot_no
+        } else
+        {
             // If there are no available spots, return to indicate no available spots
             -1
         }
@@ -105,17 +119,19 @@ class ParkingLot(capacity: Int) {
     /**
      * Counts the number of available parking slots and prints the result.
      */
-    private fun updateAvailableSlots() {
-        val availableSlots = available_slots.count { it }
-        println("Available parking slots: $availableSlots")
+    private fun update_available_slots()
+    {
+        val available_slots = available_slots.count { it }
+        println("Available parking slots: $available_slots")
     }
 
     /**
      * Updates the availability of a parking spot.
-     * @param spotNo The spotNo parameter is an integer that represents the spot number of a parking spot.
+     * @param spot_no The spotNo parameter is an integer that represents the spot number of a parking spot.
      */
-    private fun releaseSpot(spotNo: Int) {
-        available_slots[spotNo] = true
+    private fun release_spot(spot_no: Int)
+    {
+        available_slots[spot_no] = true
     }
 }
 
@@ -124,55 +140,66 @@ class ParkingLot(capacity: Int) {
  * randomly within a specified time range.
  */
 fun main() = runBlocking {
-    try {
+    try
+    {
         // The total capacity of the parking lot
-        val parkingLot = ParkingLot(capacity = 30)
+        val parking_lot = ParkingLot(capacity = 30)
         val cars = List(100) {
             launch {
-                try {
+                try
+                {
                     // Simulate random arrival time
                     delay((1..5).random() * 1000L)
-                    parkingLot.parkCar()
-                } catch (e: Exception) {
+                    parking_lot.park_car()
+                } catch (e: Exception)
+                {
                     // Handle exceptions during car arrival and parking
                     println("Error during car arrival and parking: ${e.message}")
                 }
             }
         }
         cars.joinAll()
-    } catch (e: Exception) {
+    } catch (e: Exception)
+    {
         // Handle any unexpected exceptions in the main function
         println("Error in main function: ${e.message}")
     }
 }
 
 fun run() = runBlocking {
-    try {
+    try
+    {
         // The total capacity of the parking lot
-        val parkingLot = ParkingLot(capacity = 30)
+        val parking_lot = ParkingLot(capacity = 30)
         val cars = List(100) {
             launch {
-                try {
+                try
+                {
                     // Simulate random arrival time
                     delay((1..5).random() * 1000L)
-                    parkingLot.parkCar()
-                } catch (e: Exception) {
+                    parking_lot.park_car()
+                } catch (e: Exception)
+                {
                     // Handle exceptions during car arrival and parking
                     println("Error during car arrival and parking: ${e.message}")
                 }
             }
         }
         cars.joinAll()
-    } catch (e: Exception) {
+    } catch (e: Exception)
+    {
         // Handle any unexpected exceptions in the main function
         println("Error in main function: ${e.message}")
     }
 }
 
-class Coroutines {
-    companion object {
+class Coroutines
+{
+    companion object
+    {
         @JvmStatic
-        fun main(args: Array<String>) {
+        fun main(args: Array<String>)
+        {
             var scanner = Scanner(System.`in`)
 
             print("Press enter to simulate example for courotine.")
