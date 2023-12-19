@@ -30,6 +30,7 @@ fun main(arg: Array<String>) {
 
     while (choice != 6) {
         println("---------KOTLIN DEMO MENU---------")
+        println("by maervin")
         menu()
         print("Enter choice: ")
         choice = scanner.nextInt()
