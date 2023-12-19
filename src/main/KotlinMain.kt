@@ -74,4 +74,5 @@ fun main(arg: Array<String>) {
     }
 
     println("Thank you for using the Demo Application.")
+    println("Developed by Maervin")
 }
