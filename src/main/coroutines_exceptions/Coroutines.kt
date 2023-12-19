@@ -56,7 +56,8 @@ class ParkingLot(capacity: Int) {
 
         // Shows the number of available slot after 20 cars parked
         if (total_cars_parked % 20 == 0) {
-            try {
+            try
+            {
                 updateAvailableSlots()
             } catch (e: Exception) {
                 // Handle exceptions during updating available slots
@@ -72,6 +73,7 @@ class ParkingLot(capacity: Int) {
      * It returns an integer value representing the parking spot number. If there are
      * available spots, it returns the number of the randomly selected spot that was marked as occupied. If there are no
      * available spots, it returns -1 to indicate that there are no available spots.
+     *
      */
     private fun findAvailableSpot(): Int {
         // Create a list of indices representing available spots
