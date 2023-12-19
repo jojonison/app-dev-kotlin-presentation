@@ -3,7 +3,6 @@
 *   Programmer: Maervin Villalobos
 *   Date: 09 - 17 - 2023
 *   Description: A sample problem about parking space
-*   that simulates of cars arriving and parking
 * 
 */
 
