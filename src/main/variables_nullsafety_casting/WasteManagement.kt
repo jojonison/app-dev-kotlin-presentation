@@ -27,6 +27,8 @@ class WasteManagement {
             val password: String = "abcd1234"
 
             println("Welcome to Waste Management - Baguio City!")
+
+            println("developed using kotlin")
             while (true) {
                 print("Username: ")
                 val user: String? = readlnOrNull() // Null-safety
