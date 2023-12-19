@@ -63,8 +63,7 @@ class ParkingLot(capacity: Int)
         total_cars_parked++
 
         // Shows the number of available slot after 20 cars parked
-        if (total_cars_parked % 20 == 0)
-        {
+        if (total_cars_parked % 20 == 0){
             try
             {
                 updateAvailableSlots()
