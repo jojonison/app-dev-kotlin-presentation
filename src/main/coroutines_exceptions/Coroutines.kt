@@ -27,6 +27,7 @@ class ParkingLot(capacity: Int)
 
     /**
      * Simulates a car parking in a spot, staying for 2 seconds, and then departing from the spot.
+     *
      */
     suspend fun parkCar()
     {
